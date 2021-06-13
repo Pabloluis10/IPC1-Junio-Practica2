@@ -19,24 +19,24 @@ public class Practica2 {
     int[] id = new int[30];
     String[] telefono = new String[30];
     boolean[] peliPrestada = new boolean[30];
-
+    // nota: peliculas y prestamo peliculas comparten indice de sus arreglos
     // peliculas
     int[] idPeli = new int[30];
     String[] nombrePeli = new String[30];
     int[] año = new int[30];
     String[] categoria = new String[30];
     boolean[] disponible = new boolean[30];
+    int[] contadorPrestado = new int[30];
 
     // prestamo peliculas
     int[] idPeliPrestada = new int[30];
     int[] idCliente = new int[30];
     int[] diasPrestado = new int[30];
-    int[] contadorPrestado = new int[30];
 
     public void prestamoPelicula() {
         String desicion;
         System.out.println("====================== PRÉSTAMO DE PELÍCULAS ======================");
-        System.out.println("Reglas para prestar películas:");
+        System.out.println("Rexglas para prestar películas:");
         System.out.println("1. La película debe de estar disponibles");
         System.out.println("2. El cliente solo puede prestar una película a la vez");
         System.out.print("Asepta las reglas s(si) o n(no): ");
@@ -119,15 +119,48 @@ public class Practica2 {
         }
     }
 
-    public void devolucionPeli(){
+    public void devolucionPeli() {
         System.out.println("==================== DEVOLUCIÓN DE PELÍCULAS ====================\n");
         System.out.println("Las películas prestadas son:");
         System.out.println("# |  Nombre película   |    Nombre de cliente");
 
-        for(int i=0; i<30; i++){
-            if(!disponible[i])
-            System.out.println((i+1)+" | "+ nombrePeli[i]+"  |  "+);
+        for (int i = 0; i < 30; i++) {
+            // imprimir peliculas prestadas datos
+            if (idPeliPrestada[i] != 0) {
+                // para encontrar el nombre del cliente que presto la pelicula
+                int indiceUsuario = 0;
+                boolean usuarioNombre = false;
+                do {
+                    if (idCliente[i] == id[indiceUsuario]) {
+                        usuarioNombre = true;
+                    } else {
+                        indiceUsuario++;
+                    }
+                } while (!usuarioNombre);
+
+                System.out.println((i + 1) + " | " + nombrePeli[i] + "    |    " + nombre[indiceUsuario] + "");
+            }
         }
+
+        System.out.print("\nIngrese el número de la película que desea devolver: ");
+        int num = entrada.nextInt();
+        num--; // indice de la película a devolver
+        // para encontra al cliente y cambiar su estado
+        boolean cambioEstadoCliente = false;
+        int usuarioIndice = 0;
+        while (!cambioEstadoCliente) {
+            if (idCliente[num] == id[usuarioIndice]) {
+                cambioEstadoCliente = true;
+            } else {
+                usuarioIndice++;
+            }
+        }
+        disponible[num] = true;// cambio de estado de la peli
+        peliPrestada[usuarioIndice] = false;
+        idPeliPrestada[num] = 0;
+        idCliente[num] = 0;
+        diasPrestado[num] = 0;
+        System.out.println("Ha devuelto la película satisfactoriamente.\n");
     }
 
     public void menu() {
