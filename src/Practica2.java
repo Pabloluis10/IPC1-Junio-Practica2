@@ -3,6 +3,8 @@ package src;
 import java.sql.Struct;
 import java.util.Scanner;
 
+import org.graalvm.compiler.nodes.extended.PluginFactory_FixedValueAnchorNode;
+
 public class Practica2 {
     public static void main(String[] args) {
         Practica2 Memorabilia = new Practica2();
@@ -161,6 +163,17 @@ public class Practica2 {
         idCliente[num] = 0;
         diasPrestado[num] = 0;
         System.out.println("Ha devuelto la película satisfactoriamente.\n");
+    }
+
+    public void mostrarPeliculas() {
+        System.out.println("\n==================== DATOS DE LAS PELÍCULAS ====================");
+        System.out.println("#  |    Nombre    |  año  |   Categoría   |  id película  |  Disponible");
+        int i = 0; // contador
+        while (nombrePeli[i] != null) {
+            System.out.println((i + 1) + " | " + nombrePeli[i] + " | " + año[i] + " | " + categoria[i] + " | "
+                    + idPeli[i] + " | " + disponible[i]);
+            i++;
+        }
     }
 
     public void menu() {
