@@ -176,6 +176,47 @@ public class Practica2 {
         }
     }
 
+    public void ingresoPeliculas() {
+        String nombre;
+        int idPelicula;
+        int añoPelicula;
+        String categoriaPelicula;
+
+        System.out.println("\n==================== INGRESO DE PELÍCULAS ====================");
+        // buscamos en que posición vamos a ubicar la película a ingresar
+        int posicionUbicar = 0;
+        while (posicionUbicar < 30 && nombrePeli[posicionUbicar] != null) {
+            posicionUbicar++;
+        }
+        if (posicionUbicar == 30) {
+            System.out.println("¡Ya no hay espacio para poder ingresar la películas!");
+            return;
+        }
+        System.out.print("Ingrese nombre de la películas: ");
+        nombre = entrada.nextLine();
+        System.out.print("Ingrese la categoria de la película: ");
+        categoriaPelicula = entrada.nextLine();
+        System.out.print("Ingrese el año de la película: ");
+        añoPelicula = entrada.nextInt();
+        System.out.print("Ingrese un id para la película: ");
+        idPelicula = entrada.nextInt();
+
+        // comprobamos que el id se diferente a las peliculas existentes
+        for (int i = 0; i < posicionUbicar; i++) {
+            while (idPeli[i] == idPelicula) {
+                System.out.print("¡ERROR! el id ya existe ingrese otro: ");
+                idPelicula = entrada.nextInt();
+            }
+        }
+
+        nombrePeli[posicionUbicar] = nombre;
+        categoria[posicionUbicar] = categoriaPelicula;
+        año[posicionUbicar] = añoPelicula;
+        idPeli[posicionUbicar] = idPelicula;
+
+        System.out.print("Se ha gurado la película con exito.");
+    }
+
     public void menu() {
 
     }
