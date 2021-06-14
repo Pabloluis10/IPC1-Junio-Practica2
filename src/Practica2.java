@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import org.graalvm.compiler.nodes.extended.PluginFactory_FixedValueAnchorNode;
 
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
 public class Practica2 {
     public static void main(String[] args) {
         Practica2 Memorabilia = new Practica2();
@@ -162,7 +164,7 @@ public class Practica2 {
             }
         }
         disponible[num] = true;// cambio de estado de la peli
-        peliPrestada[usuarioIndice] = false;
+        peliPrestada[usuarioIndice] = false;// cambio de estado del usuario
         idPeliPrestada[num] = 0;
         idCliente[num] = 0;
         diasPrestado[num] = 0;
@@ -213,7 +215,7 @@ public class Practica2 {
                 idPelicula = entrada.nextInt();
             }
             idRepetido = comprobarIdPeliIngresada(idPelicula, posicionUbicar);
-        } while (!idRepetido);
+        } while (idRepetido);
 
         nombrePeli[posicionUbicar] = nombre;
         categoria[posicionUbicar] = categoriaPelicula;
@@ -289,7 +291,69 @@ public class Practica2 {
                 }
             }
         }
-        System.out.println("Se ha realizado el cambio satisfactoriamente");
+        System.out.println("Las películas se han ordenado en orden alfabético");
+    }
+
+    public void ingresarCliente() {
+        String nombreUsuario;
+        String numTelefono;
+        int idUsuario;
+        String desicion; // si se desea ingresar otro clente
+        System.out.println("\n==================== INGRESAR CLIENTES NUEVOS ====================");
+        do {
+            System.out.print("Ingrese nombre del cliente: ");
+            nombreUsuario = entrada.nextLine();
+            System.out.print("Ingrese número de telefono del cliente: ");
+            numTelefono = entrada.nextLine();
+            System.out.print("Ingrese un id para el cliente: ");
+            idUsuario = entrada.nextInt();
+            // comprobamos que el id no exista en los clientes
+            boolean idRepetido = false;
+            do {
+                if (idRepetido) {
+                    System.out.print("¡ERROR! el id ya existe ingrese otro: ");
+                    idUsuario = entrada.nextInt();
+                }
+                idRepetido = comprobarIdUsuario(idUsuario);
+            } while (idRepetido);
+
+            int ubicarUsuario = 0;
+            while (nombre[ubicarUsuario] != null && ubicarUsuario < 30) {
+                ubicarUsuario++;
+            }
+            // guardamos los datos del usuario
+            nombre[ubicarUsuario] = nombreUsuario;
+            telefono[ubicarUsuario] = numTelefono;
+            id[ubicarUsuario] = idUsuario;
+            System.out.println("El cliente se ha ingresado satisfactoriamente.");
+            System.out.print("Desea ingresar otro usuario s(si) o n(no): ");
+            desicion = entrada.nextLine();
+        } while (desicion.equalsIgnoreCase("s"));
+    }
+
+    public boolean comprobarIdUsuario(int idUsuario) {
+        boolean idRepetido = false;
+        int contador = 0;
+        while (id[contador] != 0 && contador < 30) {
+            if (idUsuario == id[contador]) {
+                idRepetido = true;
+                break;
+            }
+            contador++;
+        }
+        return idRepetido;
+    }
+
+    public void mostrarClientes() {
+        System.out.println("\n==================== DATOS DE LOS CLIENTES ====================");
+        System.out.priintln("# |     Nombre     |  Teléfono  |   id   |  Película prestada");
+
+        for (int i = 0; i < 30; i++) {
+            if (nombre[i] != null) {
+                System.out.println(
+                        (i + 1) + " |  " + nombre[i] + "  | " + telefono[i] + " | " + id[i] + " | " + peliPrestada[i]);
+            }
+        }
     }
 
     public void menu() {
