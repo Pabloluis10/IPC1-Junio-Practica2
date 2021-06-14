@@ -109,7 +109,7 @@ public class Practica2 {
         }
         // si se encontro o no el usuario
         if (usuarioEncontrado) {
-            System.out.println("Se ha prestado la película satisfactoriamente.")
+            System.out.println("Se ha prestado la película satisfactoriamente.");
             disponible[num] = false; // cambio de estado de la peli
             idPeliPrestada[num] = idPeli[num];
             idCliente[num] = idUsuario;
@@ -226,7 +226,19 @@ public class Practica2 {
         año[posicionUbicar] = añoPelicula;
         idPeli[posicionUbicar] = idPelicula;
         disponible[posicionUbicar] = true;
-
+        // para reportes
+        int i = 0;
+        do {
+            if (categoriaPelicula == nombreCategoria[i]) {
+                cantidadPeliPorCategoria[i] += 1;
+                break;
+            } else if (nombreCategoria[i] == null) {
+                nombreCategoria[i] = categoriaPelicula;
+                cantidadPeliPorCategoria[i] += 1;
+                break;
+            }
+            i++;
+        } while (nombreCategoria[i] != categoriaPelicula && i < 30);
         System.out.println("Se ha gurado la película con exito.");
     }
 
@@ -363,7 +375,98 @@ public class Practica2 {
     }
 
     public void reportes() {
+        int decision;
+        System.out.println("\n==================== REPORTES ====================");
+        System.out.println("1 Para cantidad de películas por categoria");
+        System.out.println("2 Para peliculas de una categoría en específico");
+        System.out.println("3 Para películas y la cantidad de veces que se han prestado");
+        System.out.println("4 Para película más prestada");
+        System.out.println("5 Para pe{ícula menos prestada");
+        System.out.print("ingrese la opción que desea: ");
+        decision = entrada.nextInt();
+        switch (decision) {
+            case 1:
+                System.out.println("Categoría | Cantidad de Películas");
+                for (int i = 0; i < 30; i++) {
+                    if (nombreCategoria[i] != null) {
+                        System.out.println(nombreCategoria[i] + " | " + cantidadPeliPorCategoria[i]);
+                    } else {
+                        break;
+                    }
+                }
+                break;
 
+            case 2:
+                String categoriaDeseada;
+                System.out.print("Ingrese la categoría que desea: ");
+                categoriaDeseada = entrada.nextLine();
+                System.out.println("Películas en la categoria " + categoriaDeseada + ":");
+                for (int i = 0; i < 30; i++) {
+                    if (categoria[i] == null) {
+                        break;
+                    }
+
+                    if (categoria[i].equalsIgnoreCase(categoriaDeseada)) {
+                        System.out.println(nombrePeli[i]);
+                    }
+                }
+                break;
+
+            case 3:
+                System.out.println("Película | Cantidad de veces prestada");
+                for (int i = 0; i < 30; i++) {
+                    if (nombrePeli[i] == null) {
+                        break;
+                    } else {
+                        System.out.println(nombrePeli[i] + " | " + contadorPrestado[i]);
+                    }
+                }
+                break;
+
+            case 4:
+                int cantidadPrestada = 0;
+                int indiceMasPrestada = 0;
+                for (int i = 0; i < 30; i++) {
+                    if (nombrePeli[0] == null) {
+                        System.out.println("No hay ningúna película");
+                        return;
+                    } else if (nombrePeli[i] == null) {
+                        break;
+                    }
+                    if (contadorPrestado[i] > cantidadPrestada) {
+                        cantidadPrestada = contadorPrestado[i];
+                        indiceMasPrestada = i;
+                    }
+                }
+                System.out.println("Película más prestada de la tienda.");
+                System.out.println("¡" + nombrePeli[indiceMasPrestada] + "! cantidad de veces prestada ¡"
+                        + cantidadPrestada + "!");
+                break;
+
+            case 5:
+                int cantPrestada = 0;
+                int indiceMenosPrestada = 0;
+                for (int i = 0; i < 30; i++) {
+                    if (nombrePeli[0] == null) {
+                        System.out.println("No hay ningúna película");
+                        return;
+                    } else if (nombrePeli[i] == null) {
+                        break;
+                    }
+                    if (contadorPrestado[i] < cantPrestada) {
+                        cantPrestada = contadorPrestado[i];
+                        indiceMenosPrestada = i;
+                    }
+                }
+                System.out.println("Película menos prestada de la tienda.");
+                System.out.println(
+                        "¡" + nombrePeli[indiceMenosPrestada] + "! cantidad de veces prestada ¡" + cantPrestada + "!");
+
+                break;
+            default:
+                System.out.println("No ha ingresado algúna opción valida");
+                break;
+        }
     }
 
     public void menu() {
