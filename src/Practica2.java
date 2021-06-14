@@ -35,6 +35,10 @@ public class Practica2 {
     int[] idCliente = new int[30];
     int[] diasPrestado = new int[30];
 
+    // para reportes
+    String[] nombreCategoria = new String[30];
+    int[] cantidadPeliPorCategoria = new int[30];
+
     public void prestamoPelicula() {
         String desicion;
         System.out.println("====================== PRÉSTAMO DE PELÍCULAS ======================");
@@ -202,19 +206,90 @@ public class Practica2 {
         idPelicula = entrada.nextInt();
 
         // comprobamos que el id se diferente a las peliculas existentes
-        for (int i = 0; i < posicionUbicar; i++) {
-            while (idPeli[i] == idPelicula) {
+        boolean idRepetido = false;
+        do {
+            if (idRepetido) {
                 System.out.print("¡ERROR! el id ya existe ingrese otro: ");
                 idPelicula = entrada.nextInt();
             }
-        }
+            idRepetido = comprobarIdPeliIngresada(idPelicula, posicionUbicar);
+        } while (!idRepetido);
 
         nombrePeli[posicionUbicar] = nombre;
         categoria[posicionUbicar] = categoriaPelicula;
         año[posicionUbicar] = añoPelicula;
         idPeli[posicionUbicar] = idPelicula;
+        disponible[posicionUbicar] = true;
 
         System.out.print("Se ha gurado la película con exito.");
+    }
+
+    public boolean comprobarIdPeliIngresada(int id, int posicionPeliIngresada) {
+        boolean idRepetido = false;
+        for (int i = 0; i < posicionPeliIngresada; i++) {
+            if (idPeli[i] == id) {
+                idRepetido = true;
+                break;
+            }
+        }
+        return idRepetido;
+    }
+
+    public void ordenarPeliculas() {
+        System.out.println("\n==================== ORDENAR PELÍCULAS ====================");
+        String nomAux;
+        int idAux;
+        int añoAux;
+        String categAux;
+        boolean dispoAux;
+        int contAux;
+        int idPeliPrestadaAux;
+        int idClienteAux;
+        int diasAux;
+
+        for (int i = 0; i < 29; i++) {
+            if (nombrePeli[i] == null) {
+                break;
+            }
+            for (int j = 0; j < 29; j++) {
+                if (nombrePeli[j] == null || nombrePeli[j + 1] == null) {
+                    break;
+                } else {
+                    if (nombrePeli[j].compareToIgnoreCase(nombrePeli[j + 1]) > 0) {
+                        nomAux = nombrePeli[j];
+                        idAux = idPeli[j];
+                        añoAux = año[j];
+                        categAux = categoria[j];
+                        dispoAux = disponible[j];
+                        contAux = contadorPrestado[j];
+                        idPeliPrestadaAux = idPeliPrestada[j];
+                        idClienteAux = idCliente[j];
+                        diasAux = diasPrestado[j];
+
+                        nombrePeli[j] = nombrePeli[j + 1];
+                        idPeli[j] = idPeli[j + 1];
+                        año[j] = año[j + 1];
+                        categoria[j] = categoria[j + 1];
+                        disponible[j] = disponible[j + 1];
+                        contadorPrestado[j] = contadorPrestado[j + 1];
+                        idPeliPrestada[j] = idPeliPrestada[j + 1];
+                        idCliente[j] = idCliente[j + 1];
+                        diasPrestado[j] = diasPrestado[j + 1];
+
+                        nombrePeli[j + 1] = nomAux;
+                        idPeli[j + 1] = idAux;
+                        año[j + 1] = añoAux;
+                        categoria[j + 1] = categAux;
+                        disponible[j + 1] = dispoAux;
+                        contadorPrestado[j + 1] = contAux;
+                        idPeliPrestada[j + 1] = idPeliPrestadaAux;
+                        idCliente[j + 1] = idClienteAux;
+                        diasPrestado[j + 1] = diasAux;
+                    }
+                }
+            }
+        }
+        System.out.println("Se ha realizado el cambio satisfactoriamente");
     }
 
     public void menu() {
