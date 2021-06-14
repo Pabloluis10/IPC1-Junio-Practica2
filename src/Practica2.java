@@ -1,11 +1,6 @@
 package src;
 
-import java.sql.Struct;
 import java.util.Scanner;
-
-import org.graalvm.compiler.nodes.extended.PluginFactory_FixedValueAnchorNode;
-
-import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
 
 public class Practica2 {
     public static void main(String[] args) {
@@ -47,7 +42,7 @@ public class Practica2 {
         System.out.println("Rexglas para prestar películas:");
         System.out.println("1. La película debe de estar disponibles");
         System.out.println("2. El cliente solo puede prestar una película a la vez");
-        System.out.print("Asepta las reglas s(si) o n(no): ");
+        System.out.print("Acepta las reglas s(si) o n(no): ");
         desicion = entrada.nextLine();
 
         // comprobamos que haya ingresado una opción valida
@@ -62,7 +57,7 @@ public class Practica2 {
         }
 
         System.out.println("\nLas películas disponibles son las siguientes: ");
-        System.out.println("# |  Nombre película   |   Categoria    |  año |  id  ");
+        System.out.println("# | Nombre película | Categoria | año | id ");
 
         int contador = 0;
         while ((nombrePeli[contador] != null) && contador < 30) {
@@ -74,7 +69,7 @@ public class Practica2 {
         }
 
         if (contador == 0) {
-            System.out.println("no hay ningúna película disponible.");
+            System.out.println("\nno hay ningúna película disponible.");
             return;
         }
 
@@ -114,6 +109,7 @@ public class Practica2 {
         }
         // si se encontro o no el usuario
         if (usuarioEncontrado) {
+            System.out.println("Se ha prestado la película satisfactoriamente.")
             disponible[num] = false; // cambio de estado de la peli
             idPeliPrestada[num] = idPeli[num];
             idCliente[num] = idUsuario;
@@ -123,18 +119,20 @@ public class Practica2 {
             peliPrestada[posUsuarioEncontrado] = true;
 
         } else {
-            System.out.println("El id del usuario no ha sido encontrado y no se pudo prestar la pelicula");
+            System.out.println("El id del usuario no ha sido encontrado y no se pudo prestar la pelicula\n");
         }
     }
 
     public void devolucionPeli() {
         System.out.println("==================== DEVOLUCIÓN DE PELÍCULAS ====================\n");
         System.out.println("Las películas prestadas son:");
-        System.out.println("# |  Nombre película   |    Nombre de cliente");
+        System.out.println("# | Nombre película  | Nombre de cliente");
 
+        boolean hayPeli = false;
         for (int i = 0; i < 30; i++) {
             // imprimir peliculas prestadas datos
             if (idPeliPrestada[i] != 0) {
+                hayPeli = true;
                 // para encontrar el nombre del cliente que presto la pelicula
                 int indiceUsuario = 0;
                 boolean usuarioNombre = false;
@@ -148,6 +146,11 @@ public class Practica2 {
 
                 System.out.println((i + 1) + " | " + nombrePeli[i] + "    |    " + nombre[indiceUsuario] + "");
             }
+        }
+
+        if (hayPeli == false) {
+            System.out.println("No hay ninguna película a devolver.");
+            return;
         }
 
         System.out.print("\nIngrese el número de la película que desea devolver: ");
@@ -173,7 +176,7 @@ public class Practica2 {
 
     public void mostrarPeliculas() {
         System.out.println("\n==================== DATOS DE LAS PELÍCULAS ====================");
-        System.out.println("#  |    Nombre    |  año  |   Categoría   |  id película  |  Disponible");
+        System.out.println("# | Nombre | año |  Categoría  | id película | Disponible");
         int i = 0; // contador
         while (nombrePeli[i] != null) {
             System.out.println((i + 1) + " | " + nombrePeli[i] + " | " + año[i] + " | " + categoria[i] + " | "
@@ -198,6 +201,7 @@ public class Practica2 {
             System.out.println("¡Ya no hay espacio para poder ingresar la películas!");
             return;
         }
+        entrada.nextLine();
         System.out.print("Ingrese nombre de la películas: ");
         nombre = entrada.nextLine();
         System.out.print("Ingrese la categoria de la película: ");
@@ -223,7 +227,7 @@ public class Practica2 {
         idPeli[posicionUbicar] = idPelicula;
         disponible[posicionUbicar] = true;
 
-        System.out.print("Se ha gurado la película con exito.");
+        System.out.println("Se ha gurado la película con exito.");
     }
 
     public boolean comprobarIdPeliIngresada(int id, int posicionPeliIngresada) {
@@ -301,6 +305,7 @@ public class Practica2 {
         String desicion; // si se desea ingresar otro clente
         System.out.println("\n==================== INGRESAR CLIENTES NUEVOS ====================");
         do {
+            entrada.nextLine();
             System.out.print("Ingrese nombre del cliente: ");
             nombreUsuario = entrada.nextLine();
             System.out.print("Ingrese número de telefono del cliente: ");
@@ -327,6 +332,7 @@ public class Practica2 {
             id[ubicarUsuario] = idUsuario;
             System.out.println("El cliente se ha ingresado satisfactoriamente.");
             System.out.print("Desea ingresar otro usuario s(si) o n(no): ");
+            entrada.nextLine();
             desicion = entrada.nextLine();
         } while (desicion.equalsIgnoreCase("s"));
     }
@@ -346,7 +352,7 @@ public class Practica2 {
 
     public void mostrarClientes() {
         System.out.println("\n==================== DATOS DE LOS CLIENTES ====================");
-        System.out.println("# |     Nombre     |  Teléfono  |   id   |  Película prestada");
+        System.out.println("# |  Nombre  | Teléfono | id | Película prestada");
 
         for (int i = 0; i < 30; i++) {
             if (nombre[i] != null) {
@@ -362,9 +368,9 @@ public class Practica2 {
 
     public void menu() {
         int desicion;
-        System.out.println("==========°°°°° ¡BIENVENIDO A ALQUILER DE PELICULAS ''MEMORABILIA''! °°°°°==========");
+        System.out.println("\n==========°°°°° ¡BIENVENIDO A ALQUILER DE PELICULAS ''MEMORABILIA''! °°°°°==========");
         do {
-            System.out.println("Menú =====>");
+            System.out.println("\n<==================== Menú ====================>");
             System.out.println("1 Para préstamo de películas.");
             System.out.println("2 Para devolución de películas.");
             System.out.println("3 Para mostrar películas.");
