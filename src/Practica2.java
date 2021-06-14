@@ -357,6 +357,55 @@ public class Practica2 {
     }
 
     public void menu() {
+        int desicion;
+        System.out.println("==========°°°°° ¡BIENVENIDO A ALQUILER DE PELICULAS ''MEMORABILIA''! °°°°°==========");
+        do {
+            System.out.println("Menú =====>");
+            System.out.println("1 Para préstamo de películas.");
+            System.out.println("2 Para devolución de películas.");
+            System.out.println("3 Para mostrar películas.");
+            System.out.println("4 Para ingreso de películas.");
+            System.out.println("5 Para ordenar películas.");
+            System.out.println("6 Para ingresar clientes nuevos.");
+            System.out.println("7 Para mostrar Clientes.");
+            System.out.println("8 Para reportes");
+            System.out.println("9 Para salir.");
+            System.out.print("Ingrese el número de la opción que desea: ");
+            desicion = entrada.nextInt();
 
+            switch (desicion) {
+                case 1:
+                    prestamoPelicula();
+                    break;
+                case 2:
+                    devolucionPeli();
+                    break;
+                case 3:
+                    mostrarPeliculas();
+                    break;
+                case 4:
+                    ingresoPeliculas();
+                    break;
+                case 5:
+                    ordenarPeliculas();
+                    break;
+                case 6:
+                    ingresarCliente();
+                    break;
+                case 7:
+                    mostrarClientes();
+                    break;
+                case 8:
+                    reportes();
+                    break;
+                case 9:
+                    System.out.println("Ha decidido salir del programa ¡Hasta pronto!");
+                    break;
+                default:
+                    System.out.println("No ha ingresado una opción valida.");
+                    break;
+            }
+
+        } while (desicion != 9);
     }
 }
