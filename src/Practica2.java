@@ -39,7 +39,7 @@ public class Practica2 {
     public void prestamoPelicula() {
         String desicion;
         System.out.println("====================== PRÉSTAMO DE PELÍCULAS ======================");
-        System.out.println("Rexglas para prestar películas:");
+        System.out.println("Reglas para prestar películas:");
         System.out.println("1. La película debe de estar disponibles");
         System.out.println("2. El cliente solo puede prestar una película a la vez");
         System.out.print("Acepta las reglas s(si) o n(no): ");
@@ -381,7 +381,7 @@ public class Practica2 {
         System.out.println("2 Para peliculas de una categoría en específico");
         System.out.println("3 Para películas y la cantidad de veces que se han prestado");
         System.out.println("4 Para película más prestada");
-        System.out.println("5 Para pe{ícula menos prestada");
+        System.out.println("5 Para película menos prestada");
         System.out.print("ingrese la opción que desea: ");
         decision = entrada.nextInt();
         switch (decision) {
@@ -399,6 +399,7 @@ public class Practica2 {
             case 2:
                 String categoriaDeseada;
                 System.out.print("Ingrese la categoría que desea: ");
+                entrada.next();
                 categoriaDeseada = entrada.nextLine();
                 System.out.println("Películas en la categoria " + categoriaDeseada + ":");
                 for (int i = 0; i < 30; i++) {
