@@ -346,7 +346,7 @@ public class Practica2 {
 
     public void mostrarClientes() {
         System.out.println("\n==================== DATOS DE LOS CLIENTES ====================");
-        System.out.priintln("# |     Nombre     |  Teléfono  |   id   |  Película prestada");
+        System.out.println("# |     Nombre     |  Teléfono  |   id   |  Película prestada");
 
         for (int i = 0; i < 30; i++) {
             if (nombre[i] != null) {
@@ -354,6 +354,10 @@ public class Practica2 {
                         (i + 1) + " |  " + nombre[i] + "  | " + telefono[i] + " | " + id[i] + " | " + peliPrestada[i]);
             }
         }
+    }
+
+    public void reportes() {
+
     }
 
     public void menu() {
